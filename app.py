@@ -8,7 +8,7 @@ import aws_cdk as cdk
 
 # Own imports
 from cdk.helpers.add_tags import add_tags_to_app
-from cdk.stacks.cdk_example_stack import ExampleStack
+from cdk.stacks.cdk_bedrock_stack import BedrockStack
 
 
 print("--> Deployment AWS configuration (safety first):")
@@ -24,7 +24,7 @@ DEPLOYMENT_ENVIRONMENT = os.environ.get("DEPLOYMENT_ENVIRONMENT", "dev")
 MAIN_RESOURCES_NAME = app.node.try_get_context("main_resources_name")
 
 
-stack: ExampleStack = ExampleStack(
+stack: BedrockStack = BedrockStack(
     app,
     f"{MAIN_RESOURCES_NAME}-{DEPLOYMENT_ENVIRONMENT}",
     MAIN_RESOURCES_NAME,

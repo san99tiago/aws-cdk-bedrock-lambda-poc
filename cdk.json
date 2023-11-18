@@ -5,7 +5,7 @@
     "tags": {
       "Owner": "Santiago Garcia Arango",
       "Source": "https://github.com/san99tiago/aws-cdk-bedrock-lambda-poc",
-      "Usage": "Sample PoC for a Lambda Function that uses Bedrock deployed with CDK"
+      "Usage": "Sample PoC for a Lambda Function that uses Bedrock deployed with IaC on CDK"
     }
   }
 }

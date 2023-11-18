@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "aws-cdk-bedrock-lambda-poc"
 version = "0.0.1"
-description = "Sample PoC for a Lambda Function that uses Bedrock deployed with CDK"
+description = "Sample PoC for a Lambda Function that uses Bedrock deployed with IaC on CDK"
 authors = ["Santiago Garcia Arango <san99tiago@gmail.com>"]
 license = "Apache"
 readme = "README.md"
@@ -17,6 +17,8 @@ pytest = "^7.4.3"
 pytest-mock = "^3.12.0"
 coverage = "^7.3.2"
 boto3 = "^1.29.3"
+fastapi = {extras = ["all"], version = "^0.104.1"}
+mangum = "^0.17.0"
 
 
 [tool.pytest.ini_options]
