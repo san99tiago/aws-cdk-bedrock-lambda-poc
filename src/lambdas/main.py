@@ -2,7 +2,7 @@
 import logging
 
 # External imports
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
 from mangum import Mangum
 
 logger = logging.getLogger()
@@ -31,6 +31,26 @@ async def execute_model():
     # TODO: Add real berock-based model implementation
     logger.info("Executing model ...")
     logger.debug("processing model ...")
+    return {"message": "dummy response"}
+
+
+@app.post("/model")
+async def execute_model(question: dict = Body(...)):
+    """
+    FastAPI route that receives a JSON body with a key called "question".
+    :param question: The question data from the request body.
+    :return: Response with a dummy message.
+    """
+    # Access the "question" key from the received JSON body
+    question_text = question.get("question", "")
+
+    # TODO: Use the question_text in your Bedrock-based model implementation
+
+    # Log information about the execution
+    logger.info("Executing model with question: %s", question_text)
+    logger.debug("Processing model ...")
+
+    # Return a dummy response
     return {"message": "dummy response"}
 
 

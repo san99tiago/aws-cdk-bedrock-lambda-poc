@@ -6,6 +6,7 @@ from aws_cdk import (
     Stack,
     CfnOutput,
     aws_lambda,
+    aws_iam,
     Duration,
     RemovalPolicy,
 )
@@ -86,6 +87,18 @@ class BedrockStack(Stack):
             ],
             log_format=aws_lambda.LogFormat.JSON.value,
             application_log_level=aws_lambda.ApplicationLogLevel.DEBUG.value,
+        )
+
+        # Allow Lambda Function Role to interact with Bedrock
+        self.lambda_fastapi_bedrock.add_to_role_policy(
+            aws_iam.PolicyStatement(
+                sid="BedrockFullAccess",
+                effect=aws_iam.Effect.ALLOW,
+                actions=[
+                    "bedrock:*",
+                ],
+                resources=["*"],
+            )
         )
 
         self.lambda_function_url = self.lambda_fastapi_bedrock.add_function_url(
