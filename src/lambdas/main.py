@@ -1,8 +1,12 @@
 # Built-in imports
 import logging
 
+# Own imports
+from models import QuestionBody
+from bedrock_model import BedrockHelper
+
 # External imports
-from fastapi import FastAPI, Body
+from fastapi import FastAPI
 from mangum import Mangum
 
 logger = logging.getLogger()
@@ -27,31 +31,21 @@ async def get_status():
 
 
 @app.post("/model")
-async def execute_model():
-    # TODO: Add real berock-based model implementation
-    logger.info("Executing model ...")
-    logger.debug("processing model ...")
-    return {"message": "dummy response"}
-
-
-@app.post("/model")
-async def execute_model(question: dict = Body(...)):
+async def execute_model(qbody: QuestionBody):
     """
     FastAPI route that receives a JSON body with a key called "question".
-    :param question: The question data from the request body.
-    :return: Response with a dummy message.
+    :param qbody (QuestionBody): The qbody data from the request body.
+    :return: Response after executing the AI model.
     """
-    # Access the "question" key from the received JSON body
-    question_text = question.get("question", "")
-
-    # TODO: Use the question_text in your Bedrock-based model implementation
-
-    # Log information about the execution
+    # Access the "qbody" key from the received JSON body
+    question_text = qbody.question
     logger.info("Executing model with question: %s", question_text)
-    logger.debug("Processing model ...")
+
+    bedrock_helper = BedrockHelper()
+    result_text = bedrock_helper.execute_model(question_text)
 
     # Return a dummy response
-    return {"message": "dummy response"}
+    return {"message": result_text}
 
 
 handler = Mangum(app, lifespan="off")

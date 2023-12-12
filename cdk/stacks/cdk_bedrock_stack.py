@@ -52,10 +52,21 @@ class BedrockStack(Stack):
             id="LambdaLayer-FastAPI",
             code=aws_lambda.Code.from_asset("lambda-layers/fastapi/modules"),
             compatible_runtimes=[
-                aws_lambda.Runtime.PYTHON_3_9,
-                aws_lambda.Runtime.PYTHON_3_10,
+                aws_lambda.Runtime.PYTHON_3_11,
             ],
             description="Lambda Layer for Python with <fastapi> library",
+            removal_policy=RemovalPolicy.DESTROY,
+        )
+
+        # Layer for latest "boto3" version (to test new bedrock clients)
+        self.lambda_layer_boto3 = aws_lambda.LayerVersion(
+            self,
+            id="LambdaLayer-boto3",
+            code=aws_lambda.Code.from_asset("lambda-layers/boto3/modules"),
+            compatible_runtimes=[
+                aws_lambda.Runtime.PYTHON_3_11,
+            ],
+            description="Lambda Layer for Python with <boto3> library",
             removal_policy=RemovalPolicy.DESTROY,
         )
 
@@ -73,7 +84,7 @@ class BedrockStack(Stack):
         self.lambda_fastapi_bedrock: aws_lambda.Function = aws_lambda.Function(
             self,
             "Lambda-FastAPI",
-            runtime=aws_lambda.Runtime.PYTHON_3_9,
+            runtime=aws_lambda.Runtime.PYTHON_3_11,
             handler="main.handler",
             code=aws_lambda.Code.from_asset(PATH_TO_LAMBDA_FUNCTION_FOLDER),
             timeout=Duration.seconds(30),
@@ -84,6 +95,7 @@ class BedrockStack(Stack):
             },
             layers=[
                 self.lambda_layer_fastapi,
+                self.lambda_layer_boto3,
             ],
             log_format=aws_lambda.LogFormat.JSON.value,
             application_log_level=aws_lambda.ApplicationLogLevel.DEBUG.value,
