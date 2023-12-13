@@ -1,4 +1,4 @@
-# :trident: AWS-CDK-ECS-API :trident:
+# 🎨 AWS-CDK-BEDROCK-LAMBDA-POC 🎨
 
 AWS FastAPI CDK deployment with sample Bedrock-based AI solution.
 
