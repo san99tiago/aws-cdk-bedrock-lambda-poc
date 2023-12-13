@@ -13,7 +13,7 @@ AWS FastAPI CDK deployment with sample Bedrock-based AI solution.
 
 The AWS infrastructure solution is deployed with CDK-Python with the resources defined on the `cdk` folder:
 
-TODO: Add diagram.
+<img src="assets/aws_cdk_bedrock_lambda_poc.png" width=80%> <br>
 
 ## Folders Explained :scroll:
 
@@ -23,6 +23,10 @@ This repository consists of multiple folders/files, which are explained as follo
 - Source Code: ([`./src/`](./src/)).
 - Python dependencies on top of custom Lambda Layers: ([`./lambda-layers`](./lambda-layers)).
 - Tests: ([`./tests/`](./tests/))
+
+## Demo Responses 🔮
+
+<img src="assets/Example_01.png" width=80%> <br>
 
 ## Usage :white_check_mark:
 
